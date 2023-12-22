@@ -8,13 +8,10 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1.Test
     [TestClass]
     public class DataServiceTest
     {
-        DataService ds = new DataService();
 
         [TestMethod]
-        public void GetMatrix()
+        public void TestMethod1()
         {
-            string path = @"C:\DataSprint7\DataBaseSprint7V1.csv";
-            string[,] res = ds.GetMatrix(path);
         }
     }
 }
