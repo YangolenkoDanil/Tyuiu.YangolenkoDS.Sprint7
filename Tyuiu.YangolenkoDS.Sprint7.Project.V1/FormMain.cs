@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -38,6 +40,7 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
             {
                 try
                 {
+                    dataGridViewDataBase_YDS.AllowUserToAddRows = false;
                     openFileDialog_YDS.ShowDialog();
                     openFilePath = openFileDialog_YDS.FileName;
                     column = File.ReadAllLines(openFilePath, Encoding.UTF8).Length + 1;
@@ -57,7 +60,7 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
                 }
                 catch
                 {
-                    MessageBox.Show("Введены неверные данные", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Выбран неверный файл!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -68,7 +71,7 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
                     openFilePath = openFileDialog_YDS.FileName;
                     column = File.ReadAllLines(openFilePath, Encoding.UTF8).Length + 1;
 
-
+                    dataGridViewDataBase_YDS.AllowUserToAddRows = false;
                     dataGridViewDataBase_YDS.ColumnCount = column;
                     using (var reader = new StreamReader(openFilePath))
                     {
@@ -83,7 +86,7 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
                 }
                 catch
                 {
-                    MessageBox.Show("Введены неверные данные", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Выбран неверный файл!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -94,7 +97,12 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
             buttonDelete_YDS.Enabled = true;
             textBoxSearch_YDS.Enabled = true;
             buttonCancelChanges_YDS.Enabled = true;
-
+            textBoxAvg_YDS.Enabled = true;
+            textBoxMax_YDS.Enabled = true;
+            textBoxMin_YDS.Enabled = true;
+            buttonStopMinMaxAvg_YDS.Enabled = true;
+            buttonStopSearch_YDS.Enabled = true;
+            buttonStartValues_YDS.Enabled = true;
         }
 
 
@@ -176,6 +184,17 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
         private void buttonDelete_YDS_Click(object sender, EventArgs e)
         {
             dataGridViewDataBase_YDS.Rows.Clear();
+
+            buttonSaveFile_YDS.Enabled = false;
+            buttonDelete_YDS.Enabled = false;
+            textBoxSearch_YDS.Enabled = false;
+            buttonCancelChanges_YDS.Enabled = false;
+            textBoxAvg_YDS.Enabled = false;
+            textBoxMax_YDS.Enabled = false;
+            textBoxMin_YDS.Enabled = false;
+            buttonStopMinMaxAvg_YDS.Enabled = false;
+            buttonStopSearch_YDS.Enabled = false;
+            buttonStartValues_YDS.Enabled = false;
         }
 
         private void buttonHelp_YDS_Click(object sender, EventArgs e)
@@ -190,6 +209,12 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
             buttonDelete_YDS.Enabled = false;
             textBoxSearch_YDS.Enabled = false;
             buttonCancelChanges_YDS.Enabled = false;
+            textBoxAvg_YDS.Enabled = false;
+            textBoxMax_YDS.Enabled = false;
+            textBoxMin_YDS.Enabled = false;
+            buttonStopMinMaxAvg_YDS.Enabled = false;
+            buttonStopSearch_YDS.Enabled = false;
+            buttonStartValues_YDS.Enabled = false;
         }
 
 
@@ -249,7 +274,7 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
                 }
                 catch
                 {
-                    MessageBox.Show("Введены неверные данные", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Что-то пошло не так", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -273,7 +298,7 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
                 }
                 catch
                 {
-                    MessageBox.Show("Введены неверные данные", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Что-то пошло не так", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -292,6 +317,37 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
         private void dataGridViewDataBase_YDS_SelectionChanged(object sender, EventArgs e)
         {
             dataGridViewDataBase_YDS.ClearSelection();
+        }
+
+
+
+        private void buttonStopMinMaxAvg_YDS_Click(object sender, EventArgs e)
+        {
+            textBoxAvg_YDS.Text = null;
+            textBoxMax_YDS.Text = null;
+            textBoxMin_YDS.Text = null;
+        }
+
+        private void buttonStartValues_YDS_Click(object sender, EventArgs e)
+        {
+            DataService ds = new DataService();
+            int[] BrandRow = new int [rows];
+
+            for (int i = 1; i < rows; i++)
+            {
+                for (int j = 0; j < column; j++)
+                {
+                    if (j == 5)
+                    {
+                        BrandRow[i] = int.Parse(dataGridViewDataBase_YDS.Rows[i].Cells[j].Value.ToString());
+                    }
+                }
+            }
+
+            textBoxMax_YDS.Text = ds.GetMaxValue(BrandRow).ToString();
+            textBoxMin_YDS.Text = ds.GetMinValue(BrandRow).ToString();
+            textBoxAvg_YDS.Text = ds.GetAvgValue(BrandRow).ToString();
+
         }
 
         private void dataGridViewDataBase_YDS_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
