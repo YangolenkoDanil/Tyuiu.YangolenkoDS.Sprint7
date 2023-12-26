@@ -93,6 +93,8 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
             column = dataGridViewDataBase_YDS.Columns.Count;
             rows = dataGridViewDataBase_YDS.Rows.Count;
 
+            dataGridViewDataBase_YDS.Rows[0].Cells[0].Selected = false;
+
             buttonSaveFile_YDS.Enabled = true;
             buttonDelete_YDS.Enabled = true;
             textBoxSearch_YDS.Enabled = true;
@@ -103,6 +105,13 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
             buttonStopMinMaxAvg_YDS.Enabled = true;
             buttonStopSearch_YDS.Enabled = true;
             buttonStartValues_YDS.Enabled = true;
+            buttonAdd_YDS.Enabled = true;
+            buttonDeleteRow_YDS.Enabled = true;
+            buttonCharPie_YDS.Enabled = true;
+            textBoxFiltr_YDS.Enabled = true;
+            buttonFiltr_YDS.Enabled = true;
+            buttonDeleteChart_YDS.Enabled = true;
+            buttonCancelFiltr_YDS.Enabled = true;
         }
 
 
@@ -195,6 +204,13 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
             buttonStopMinMaxAvg_YDS.Enabled = false;
             buttonStopSearch_YDS.Enabled = false;
             buttonStartValues_YDS.Enabled = false;
+            buttonAdd_YDS.Enabled = false;
+            buttonDeleteRow_YDS.Enabled = false;
+            buttonCharPie_YDS.Enabled = false;
+            textBoxFiltr_YDS.Enabled = false;
+            buttonFiltr_YDS.Enabled = false;
+            buttonDeleteChart_YDS.Enabled = false;
+            buttonCancelFiltr_YDS.Enabled = false;
         }
 
         private void buttonHelp_YDS_Click(object sender, EventArgs e)
@@ -215,6 +231,13 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
             buttonStopMinMaxAvg_YDS.Enabled = false;
             buttonStopSearch_YDS.Enabled = false;
             buttonStartValues_YDS.Enabled = false;
+            buttonAdd_YDS.Enabled = false;
+            buttonDeleteRow_YDS.Enabled = false;
+            buttonCharPie_YDS.Enabled = false;
+            textBoxFiltr_YDS.Enabled = false;
+            buttonFiltr_YDS.Enabled = false;
+            buttonDeleteChart_YDS.Enabled = false;
+            buttonCancelFiltr_YDS.Enabled = false;
         }
 
 
@@ -304,6 +327,8 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
 
             column = dataGridViewDataBase_YDS.Columns.Count;
             rows = dataGridViewDataBase_YDS.Rows.Count;
+
+            dataGridViewDataBase_YDS.Rows[0].Cells[0].Selected = false;
         }
 
         private void dataGridViewDataBase_YDS_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -316,7 +341,6 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
 
         private void dataGridViewDataBase_YDS_SelectionChanged(object sender, EventArgs e)
         {
-            dataGridViewDataBase_YDS.ClearSelection();
         }
 
 
@@ -330,24 +354,122 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
 
         private void buttonStartValues_YDS_Click(object sender, EventArgs e)
         {
-            DataService ds = new DataService();
-            int[] BrandRow = new int [rows];
 
-            for (int i = 1; i < rows; i++)
+            DataService ds = new DataService();
+            try
             {
-                for (int j = 0; j < column; j++)
+                int[] PowerCol = new int[rows - 1];
+                int k = 1;
+                for (int i = 0; i < PowerCol.Length; i++)
                 {
-                    if (j == 5)
+                    PowerCol[i] = Convert.ToInt32(dataGridViewDataBase_YDS.Rows[k].Cells[5].Value.ToString());
+                    k++;
+                }
+                textBoxMax_YDS.Text = ds.GetMaxValue(PowerCol).ToString();
+                textBoxMin_YDS.Text = ds.GetMinValue(PowerCol).ToString();
+                textBoxAvg_YDS.Text = ds.GetAvgValue(PowerCol).ToString();
+            }
+            catch
+            {
+                MessageBox.Show("Что-то пошло не так", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error );
+            }
+        }
+
+        private void buttonAdd_YDS_Click(object sender, EventArgs e)
+        {
+            dataGridViewDataBase_YDS.Rows.Add();
+            rows++;
+
+        }
+
+        private void buttonDeleteRow_YDS_Click(object sender, EventArgs e)
+        {
+            dataGridViewDataBase_YDS.Rows.RemoveAt(dataGridViewDataBase_YDS.Rows.Count - 1);
+            rows--;
+        }
+
+        private void buttonCharPie_YDS_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                chartPower_YDS.Series[0].Points.Clear();
+                string[] Brand = new string[rows - 1];
+                int[] PowerCol = new int[rows - 1];
+                int k = 1;
+                int n = 1;
+                for (int i = 0; i < PowerCol.Length; i++)
+                {
+                    PowerCol[i] = Convert.ToInt32(dataGridViewDataBase_YDS.Rows[k].Cells[5].Value.ToString());
+                    k++;
+                }
+                for (int i = 0; i < Brand.Length; i++)
+                {
+                    Brand[i] = dataGridViewDataBase_YDS.Rows[n].Cells[4].Value.ToString();
+                    n++;
+                }
+                string[] Brand1 = Brand.Distinct().ToArray();
+                int[] PowerCol1 = PowerCol.Distinct().ToArray();
+                for (int i = 0; i < PowerCol1.Length; i++)
+                {
+                    chartPower_YDS.Series[0].Points.AddXY(Brand1[i], Convert.ToString(PowerCol1[i]));
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Не удалось построить диаграмму", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error );
+            }
+        }
+
+        private void buttonDeleteChart_YDS_Click(object sender, EventArgs e)
+        {
+            chartPower_YDS.Series[0].Points.Clear();
+        }
+
+        private void checkBoxTochZap_YDS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (issemicolon)
+            {
+                issemicolon = false;
+            }
+            else
+            {
+                issemicolon = true;
+            }
+        }
+
+        private void buttonFiltr_YDS_Click(object sender, EventArgs e)
+        {
+
+            dataGridViewDataBase_YDS.ClearSelection();
+
+            try
+            {
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int j = 0; j < column; j++)
                     {
-                        BrandRow[i] = int.Parse(dataGridViewDataBase_YDS.Rows[i].Cells[j].Value.ToString());
+                        if (dataGridViewDataBase_YDS.Rows[i].Cells[j].Value != null && dataGridViewDataBase_YDS.Rows[i].Cells[j].Value.ToString().ToLower().Contains(textBoxFiltr_YDS.Text.ToLower()))
+                        {
+                            dataGridViewDataBase_YDS.Rows[i].Selected = true;
+                        }
                     }
                 }
             }
+            catch
+            {
+                MessageBox.Show("Что-то пошло не так", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error );
+            }
+        }
 
-            textBoxMax_YDS.Text = ds.GetMaxValue(BrandRow).ToString();
-            textBoxMin_YDS.Text = ds.GetMinValue(BrandRow).ToString();
-            textBoxAvg_YDS.Text = ds.GetAvgValue(BrandRow).ToString();
+        private void textBoxFiltr_YDS_TextChanged(object sender, EventArgs e)
+        {
 
+        }
+
+        private void buttonCancelFiltr_YDS_Click(object sender, EventArgs e)
+        {
+            dataGridViewDataBase_YDS.ClearSelection();
+            textBoxFiltr_YDS.Text = null;
         }
 
         private void dataGridViewDataBase_YDS_SortCompare(object sender, DataGridViewSortCompareEventArgs e)

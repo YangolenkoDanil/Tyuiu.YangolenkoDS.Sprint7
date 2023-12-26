@@ -24,7 +24,7 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1.Lib
             {
                 res += array[i];
             }
-            return Math.Round(res / array.Length, 3);
+            return Math.Round(res / array.Length - 1, 3);
         }
     }
 }

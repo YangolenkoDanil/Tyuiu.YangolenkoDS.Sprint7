@@ -16,5 +16,10 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
         {
             InitializeComponent();
         }
+
+        private void buttonBack_YDS_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
