@@ -30,11 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend11 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panelButtons_YDS = new System.Windows.Forms.Panel();
+            this.labelZap_YDS = new System.Windows.Forms.Label();
+            this.checkBoxTochZap_YDS = new System.Windows.Forms.CheckBox();
             this.buttonCancelChanges_YDS = new System.Windows.Forms.Button();
+            this.buttonCharPie_YDS = new System.Windows.Forms.Button();
             this.buttonDelete_YDS = new System.Windows.Forms.Button();
             this.buttonOpenFile_YDS = new System.Windows.Forms.Button();
             this.buttonSaveFile_YDS = new System.Windows.Forms.Button();
@@ -48,8 +51,8 @@
             this.buttonDeleteRow_YDS = new System.Windows.Forms.Button();
             this.buttonAdd_YDS = new System.Windows.Forms.Button();
             this.groupBoxFunc_YDS = new System.Windows.Forms.GroupBox();
+            this.buttonDeleteChart_YDS = new System.Windows.Forms.Button();
             this.chartPower_YDS = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.buttonCharPie_YDS = new System.Windows.Forms.Button();
             this.groupBoxMinMaxAvg_YDS = new System.Windows.Forms.GroupBox();
             this.buttonStartValues_YDS = new System.Windows.Forms.Button();
             this.buttonStopMinMaxAvg_YDS = new System.Windows.Forms.Button();
@@ -60,17 +63,15 @@
             this.textBoxMin_YDS = new System.Windows.Forms.TextBox();
             this.textBoxMax_YDS = new System.Windows.Forms.TextBox();
             this.groupBoxSearch_YDS = new System.Windows.Forms.GroupBox();
-            this.buttonStopSearch_YDS = new System.Windows.Forms.Button();
+            this.buttonCancelFiltr_YDS = new System.Windows.Forms.Button();
+            this.buttonFiltr_YDS = new System.Windows.Forms.Button();
+            this.textBoxFiltr_YDS = new System.Windows.Forms.TextBox();
+            this.buttonSearch_YDS = new System.Windows.Forms.Button();
             this.textBoxSearch_YDS = new System.Windows.Forms.TextBox();
             this.toolTipHelp_YDS = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialog_YDS = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog_YDS = new System.Windows.Forms.SaveFileDialog();
-            this.buttonDeleteChart_YDS = new System.Windows.Forms.Button();
-            this.checkBoxTochZap_YDS = new System.Windows.Forms.CheckBox();
-            this.labelZap_YDS = new System.Windows.Forms.Label();
-            this.textBoxFiltr_YDS = new System.Windows.Forms.TextBox();
-            this.buttonFiltr_YDS = new System.Windows.Forms.Button();
-            this.buttonCancelFiltr_YDS = new System.Windows.Forms.Button();
+            this.buttonStopSearch_YDS = new System.Windows.Forms.Button();
             this.panelButtons_YDS.SuspendLayout();
             this.panelDataBase_YDS.SuspendLayout();
             this.groupBoxDataBase_YDS.SuspendLayout();
@@ -101,6 +102,27 @@
             this.panelButtons_YDS.Size = new System.Drawing.Size(1478, 100);
             this.panelButtons_YDS.TabIndex = 0;
             // 
+            // labelZap_YDS
+            // 
+            this.labelZap_YDS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelZap_YDS.AutoSize = true;
+            this.labelZap_YDS.Location = new System.Drawing.Point(706, 53);
+            this.labelZap_YDS.Name = "labelZap_YDS";
+            this.labelZap_YDS.Size = new System.Drawing.Size(169, 16);
+            this.labelZap_YDS.TabIndex = 7;
+            this.labelZap_YDS.Text = "Файл разделен запятой:";
+            // 
+            // checkBoxTochZap_YDS
+            // 
+            this.checkBoxTochZap_YDS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxTochZap_YDS.AutoSize = true;
+            this.checkBoxTochZap_YDS.Location = new System.Drawing.Point(890, 53);
+            this.checkBoxTochZap_YDS.Name = "checkBoxTochZap_YDS";
+            this.checkBoxTochZap_YDS.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxTochZap_YDS.TabIndex = 6;
+            this.checkBoxTochZap_YDS.UseVisualStyleBackColor = true;
+            this.checkBoxTochZap_YDS.CheckedChanged += new System.EventHandler(this.checkBoxTochZap_YDS_CheckedChanged);
+            // 
             // buttonCancelChanges_YDS
             // 
             this.buttonCancelChanges_YDS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -112,6 +134,20 @@
             this.toolTipHelp_YDS.SetToolTip(this.buttonCancelChanges_YDS, "Отменить изменения\r\nНажмите, чтобы отменить изменения в таблице.");
             this.buttonCancelChanges_YDS.UseVisualStyleBackColor = true;
             this.buttonCancelChanges_YDS.Click += new System.EventHandler(this.buttonCancelChanges_YDS_Click);
+            // 
+            // buttonCharPie_YDS
+            // 
+            this.buttonCharPie_YDS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCharPie_YDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCharPie_YDS.Image = ((System.Drawing.Image)(resources.GetObject("buttonCharPie_YDS.Image")));
+            this.buttonCharPie_YDS.Location = new System.Drawing.Point(923, 12);
+            this.buttonCharPie_YDS.Name = "buttonCharPie_YDS";
+            this.buttonCharPie_YDS.Size = new System.Drawing.Size(73, 71);
+            this.buttonCharPie_YDS.TabIndex = 0;
+            this.buttonCharPie_YDS.Text = "\r\n";
+            this.toolTipHelp_YDS.SetToolTip(this.buttonCharPie_YDS, "Построить диаграмму.\r\nНажмите, чтобы построить диаграмму Марка & Мощность.");
+            this.buttonCharPie_YDS.UseVisualStyleBackColor = true;
+            this.buttonCharPie_YDS.Click += new System.EventHandler(this.buttonCharPie_YDS_Click);
             // 
             // buttonDelete_YDS
             // 
@@ -275,37 +311,34 @@
             this.groupBoxFunc_YDS.TabStop = false;
             this.groupBoxFunc_YDS.Text = "График:";
             // 
+            // buttonDeleteChart_YDS
+            // 
+            this.buttonDeleteChart_YDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonDeleteChart_YDS.Location = new System.Drawing.Point(193, 142);
+            this.buttonDeleteChart_YDS.Name = "buttonDeleteChart_YDS";
+            this.buttonDeleteChart_YDS.Size = new System.Drawing.Size(80, 29);
+            this.buttonDeleteChart_YDS.TabIndex = 2;
+            this.buttonDeleteChart_YDS.Text = "Удалить";
+            this.buttonDeleteChart_YDS.UseVisualStyleBackColor = true;
+            this.buttonDeleteChart_YDS.Click += new System.EventHandler(this.buttonDeleteChart_YDS_Click);
+            // 
             // chartPower_YDS
             // 
-            chartArea11.Name = "ChartArea1";
-            this.chartPower_YDS.ChartAreas.Add(chartArea11);
-            legend11.Name = "Legend1";
-            this.chartPower_YDS.Legends.Add(legend11);
+            chartArea6.Name = "ChartArea1";
+            this.chartPower_YDS.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.chartPower_YDS.Legends.Add(legend6);
             this.chartPower_YDS.Location = new System.Drawing.Point(6, 21);
             this.chartPower_YDS.Name = "chartPower_YDS";
-            series11.ChartArea = "ChartArea1";
-            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series11.IsValueShownAsLabel = true;
-            series11.Legend = "Legend1";
-            series11.Name = "Series1";
-            this.chartPower_YDS.Series.Add(series11);
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series6.IsValueShownAsLabel = true;
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.chartPower_YDS.Series.Add(series6);
             this.chartPower_YDS.Size = new System.Drawing.Size(286, 164);
             this.chartPower_YDS.TabIndex = 1;
             this.chartPower_YDS.Text = "chart1";
-            // 
-            // buttonCharPie_YDS
-            // 
-            this.buttonCharPie_YDS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCharPie_YDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCharPie_YDS.Image = ((System.Drawing.Image)(resources.GetObject("buttonCharPie_YDS.Image")));
-            this.buttonCharPie_YDS.Location = new System.Drawing.Point(923, 12);
-            this.buttonCharPie_YDS.Name = "buttonCharPie_YDS";
-            this.buttonCharPie_YDS.Size = new System.Drawing.Size(73, 71);
-            this.buttonCharPie_YDS.TabIndex = 0;
-            this.buttonCharPie_YDS.Text = "\r\n";
-            this.toolTipHelp_YDS.SetToolTip(this.buttonCharPie_YDS, "Построить диаграмму.\r\nНажмите, чтобы построить диаграмму Марка & Мощность.");
-            this.buttonCharPie_YDS.UseVisualStyleBackColor = true;
-            this.buttonCharPie_YDS.Click += new System.EventHandler(this.buttonCharPie_YDS_Click);
             // 
             // groupBoxMinMaxAvg_YDS
             // 
@@ -407,10 +440,11 @@
             // 
             // groupBoxSearch_YDS
             // 
+            this.groupBoxSearch_YDS.Controls.Add(this.buttonStopSearch_YDS);
             this.groupBoxSearch_YDS.Controls.Add(this.buttonCancelFiltr_YDS);
             this.groupBoxSearch_YDS.Controls.Add(this.buttonFiltr_YDS);
             this.groupBoxSearch_YDS.Controls.Add(this.textBoxFiltr_YDS);
-            this.groupBoxSearch_YDS.Controls.Add(this.buttonStopSearch_YDS);
+            this.groupBoxSearch_YDS.Controls.Add(this.buttonSearch_YDS);
             this.groupBoxSearch_YDS.Controls.Add(this.textBoxSearch_YDS);
             this.groupBoxSearch_YDS.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBoxSearch_YDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -421,16 +455,48 @@
             this.groupBoxSearch_YDS.TabStop = false;
             this.groupBoxSearch_YDS.Text = "Поиск и фильтрация:";
             // 
-            // buttonStopSearch_YDS
+            // buttonCancelFiltr_YDS
             // 
-            this.buttonStopSearch_YDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonStopSearch_YDS.Location = new System.Drawing.Point(65, 52);
-            this.buttonStopSearch_YDS.Name = "buttonStopSearch_YDS";
-            this.buttonStopSearch_YDS.Size = new System.Drawing.Size(181, 36);
-            this.buttonStopSearch_YDS.TabIndex = 12;
-            this.buttonStopSearch_YDS.Text = "Прекратить поиск";
-            this.buttonStopSearch_YDS.UseVisualStyleBackColor = true;
-            this.buttonStopSearch_YDS.Click += new System.EventHandler(this.buttonStopSearch_YDS_Click);
+            this.buttonCancelFiltr_YDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCancelFiltr_YDS.Image = ((System.Drawing.Image)(resources.GetObject("buttonCancelFiltr_YDS.Image")));
+            this.buttonCancelFiltr_YDS.Location = new System.Drawing.Point(252, 117);
+            this.buttonCancelFiltr_YDS.Name = "buttonCancelFiltr_YDS";
+            this.buttonCancelFiltr_YDS.Size = new System.Drawing.Size(52, 50);
+            this.buttonCancelFiltr_YDS.TabIndex = 15;
+            this.toolTipHelp_YDS.SetToolTip(this.buttonCancelFiltr_YDS, "Прекратить фильтрацию.\r\nНажмите, чтобы прекратить фильтрацию");
+            this.buttonCancelFiltr_YDS.UseVisualStyleBackColor = true;
+            this.buttonCancelFiltr_YDS.Click += new System.EventHandler(this.buttonCancelFiltr_YDS_Click);
+            // 
+            // buttonFiltr_YDS
+            // 
+            this.buttonFiltr_YDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonFiltr_YDS.Location = new System.Drawing.Point(65, 123);
+            this.buttonFiltr_YDS.Name = "buttonFiltr_YDS";
+            this.buttonFiltr_YDS.Size = new System.Drawing.Size(181, 38);
+            this.buttonFiltr_YDS.TabIndex = 14;
+            this.buttonFiltr_YDS.Text = "Фильтрация";
+            this.buttonFiltr_YDS.UseVisualStyleBackColor = true;
+            this.buttonFiltr_YDS.Click += new System.EventHandler(this.buttonFiltr_YDS_Click);
+            // 
+            // textBoxFiltr_YDS
+            // 
+            this.textBoxFiltr_YDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxFiltr_YDS.Location = new System.Drawing.Point(65, 94);
+            this.textBoxFiltr_YDS.Name = "textBoxFiltr_YDS";
+            this.textBoxFiltr_YDS.Size = new System.Drawing.Size(181, 22);
+            this.textBoxFiltr_YDS.TabIndex = 13;
+            this.textBoxFiltr_YDS.TextChanged += new System.EventHandler(this.textBoxFiltr_YDS_TextChanged);
+            // 
+            // buttonSearch_YDS
+            // 
+            this.buttonSearch_YDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSearch_YDS.Location = new System.Drawing.Point(65, 52);
+            this.buttonSearch_YDS.Name = "buttonSearch_YDS";
+            this.buttonSearch_YDS.Size = new System.Drawing.Size(181, 36);
+            this.buttonSearch_YDS.TabIndex = 12;
+            this.buttonSearch_YDS.Text = "Начать поиск";
+            this.buttonSearch_YDS.UseVisualStyleBackColor = true;
+            this.buttonSearch_YDS.Click += new System.EventHandler(this.buttonStopSearch_YDS_Click);
             // 
             // textBoxSearch_YDS
             // 
@@ -449,68 +515,17 @@
             // 
             this.openFileDialog_YDS.FileName = "openFileDialog1";
             // 
-            // buttonDeleteChart_YDS
+            // buttonStopSearch_YDS
             // 
-            this.buttonDeleteChart_YDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonDeleteChart_YDS.Location = new System.Drawing.Point(193, 142);
-            this.buttonDeleteChart_YDS.Name = "buttonDeleteChart_YDS";
-            this.buttonDeleteChart_YDS.Size = new System.Drawing.Size(80, 29);
-            this.buttonDeleteChart_YDS.TabIndex = 2;
-            this.buttonDeleteChart_YDS.Text = "Удалить";
-            this.buttonDeleteChart_YDS.UseVisualStyleBackColor = true;
-            this.buttonDeleteChart_YDS.Click += new System.EventHandler(this.buttonDeleteChart_YDS_Click);
-            // 
-            // checkBoxTochZap_YDS
-            // 
-            this.checkBoxTochZap_YDS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxTochZap_YDS.AutoSize = true;
-            this.checkBoxTochZap_YDS.Location = new System.Drawing.Point(890, 53);
-            this.checkBoxTochZap_YDS.Name = "checkBoxTochZap_YDS";
-            this.checkBoxTochZap_YDS.Size = new System.Drawing.Size(18, 17);
-            this.checkBoxTochZap_YDS.TabIndex = 6;
-            this.checkBoxTochZap_YDS.UseVisualStyleBackColor = true;
-            this.checkBoxTochZap_YDS.CheckedChanged += new System.EventHandler(this.checkBoxTochZap_YDS_CheckedChanged);
-            // 
-            // labelZap_YDS
-            // 
-            this.labelZap_YDS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelZap_YDS.AutoSize = true;
-            this.labelZap_YDS.Location = new System.Drawing.Point(706, 53);
-            this.labelZap_YDS.Name = "labelZap_YDS";
-            this.labelZap_YDS.Size = new System.Drawing.Size(169, 16);
-            this.labelZap_YDS.TabIndex = 7;
-            this.labelZap_YDS.Text = "Файл разделен запятой:";
-            // 
-            // textBoxFiltr_YDS
-            // 
-            this.textBoxFiltr_YDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxFiltr_YDS.Location = new System.Drawing.Point(65, 94);
-            this.textBoxFiltr_YDS.Name = "textBoxFiltr_YDS";
-            this.textBoxFiltr_YDS.Size = new System.Drawing.Size(181, 22);
-            this.textBoxFiltr_YDS.TabIndex = 13;
-            this.textBoxFiltr_YDS.TextChanged += new System.EventHandler(this.textBoxFiltr_YDS_TextChanged);
-            // 
-            // buttonFiltr_YDS
-            // 
-            this.buttonFiltr_YDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonFiltr_YDS.Location = new System.Drawing.Point(65, 123);
-            this.buttonFiltr_YDS.Name = "buttonFiltr_YDS";
-            this.buttonFiltr_YDS.Size = new System.Drawing.Size(181, 38);
-            this.buttonFiltr_YDS.TabIndex = 14;
-            this.buttonFiltr_YDS.Text = "Фильтрация";
-            this.buttonFiltr_YDS.UseVisualStyleBackColor = true;
-            this.buttonFiltr_YDS.Click += new System.EventHandler(this.buttonFiltr_YDS_Click);
-            // 
-            // buttonCancelFiltr_YDS
-            // 
-            this.buttonCancelFiltr_YDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCancelFiltr_YDS.Image = ((System.Drawing.Image)(resources.GetObject("buttonCancelFiltr_YDS.Image")));
-            this.buttonCancelFiltr_YDS.Location = new System.Drawing.Point(252, 117);
-            this.buttonCancelFiltr_YDS.Name = "buttonCancelFiltr_YDS";
-            this.buttonCancelFiltr_YDS.Size = new System.Drawing.Size(52, 50);
-            this.buttonCancelFiltr_YDS.TabIndex = 15;
-            this.buttonCancelFiltr_YDS.UseVisualStyleBackColor = true;
-            this.buttonCancelFiltr_YDS.Click += new System.EventHandler(this.buttonCancelFiltr_YDS_Click);
+            this.buttonStopSearch_YDS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonStopSearch_YDS.Image = ((System.Drawing.Image)(resources.GetObject("buttonStopSearch_YDS.Image")));
+            this.buttonStopSearch_YDS.Location = new System.Drawing.Point(252, 45);
+            this.buttonStopSearch_YDS.Name = "buttonStopSearch_YDS";
+            this.buttonStopSearch_YDS.Size = new System.Drawing.Size(52, 46);
+            this.buttonStopSearch_YDS.TabIndex = 16;
+            this.toolTipHelp_YDS.SetToolTip(this.buttonStopSearch_YDS, "Прекратить поиск.\r\nНажмите, чтобы прекратить поиск.\r\n");
+            this.buttonStopSearch_YDS.UseVisualStyleBackColor = true;
+            this.buttonStopSearch_YDS.Click += new System.EventHandler(this.buttonStopSearch_YDS_Click_1);
             // 
             // FormMain
             // 
@@ -523,7 +538,7 @@
             this.MinimumSize = new System.Drawing.Size(1496, 860);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Спритн 7 | Project | Вариант 1 | Янголенко Д. С.";
+            this.Text = "Спринт 7 | Project | Вариант 1 | Янголенко Д. С.";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.panelButtons_YDS.ResumeLayout(false);
             this.panelButtons_YDS.PerformLayout();
@@ -560,7 +575,7 @@
         private System.Windows.Forms.Button buttonCancelChanges_YDS;
         private System.Windows.Forms.GroupBox groupBoxMinMaxAvg_YDS;
         private System.Windows.Forms.GroupBox groupBoxSearch_YDS;
-        private System.Windows.Forms.Button buttonStopSearch_YDS;
+        private System.Windows.Forms.Button buttonSearch_YDS;
         private System.Windows.Forms.TextBox textBoxSearch_YDS;
         private System.Windows.Forms.Label labelAvg_YDS;
         private System.Windows.Forms.Label labelMin_YDS;
@@ -582,6 +597,7 @@
         private System.Windows.Forms.TextBox textBoxFiltr_YDS;
         private System.Windows.Forms.Button buttonFiltr_YDS;
         private System.Windows.Forms.Button buttonCancelFiltr_YDS;
+        private System.Windows.Forms.Button buttonStopSearch_YDS;
     }
 }
 

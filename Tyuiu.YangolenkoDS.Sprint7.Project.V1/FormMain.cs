@@ -103,7 +103,7 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
             textBoxMax_YDS.Enabled = true;
             textBoxMin_YDS.Enabled = true;
             buttonStopMinMaxAvg_YDS.Enabled = true;
-            buttonStopSearch_YDS.Enabled = true;
+            buttonSearch_YDS.Enabled = true;
             buttonStartValues_YDS.Enabled = true;
             buttonAdd_YDS.Enabled = true;
             buttonDeleteRow_YDS.Enabled = true;
@@ -112,6 +112,7 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
             buttonFiltr_YDS.Enabled = true;
             buttonDeleteChart_YDS.Enabled = true;
             buttonCancelFiltr_YDS.Enabled = true;
+            buttonStopSearch_YDS.Enabled = true;
         }
 
 
@@ -202,7 +203,7 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
             textBoxMax_YDS.Enabled = false;
             textBoxMin_YDS.Enabled = false;
             buttonStopMinMaxAvg_YDS.Enabled = false;
-            buttonStopSearch_YDS.Enabled = false;
+            buttonSearch_YDS.Enabled = false;
             buttonStartValues_YDS.Enabled = false;
             buttonAdd_YDS.Enabled = false;
             buttonDeleteRow_YDS.Enabled = false;
@@ -211,6 +212,7 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
             buttonFiltr_YDS.Enabled = false;
             buttonDeleteChart_YDS.Enabled = false;
             buttonCancelFiltr_YDS.Enabled = false;
+            buttonStopSearch_YDS.Enabled = false;
         }
 
         private void buttonHelp_YDS_Click(object sender, EventArgs e)
@@ -229,7 +231,7 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
             textBoxMax_YDS.Enabled = false;
             textBoxMin_YDS.Enabled = false;
             buttonStopMinMaxAvg_YDS.Enabled = false;
-            buttonStopSearch_YDS.Enabled = false;
+            buttonSearch_YDS.Enabled = false;
             buttonStartValues_YDS.Enabled = false;
             buttonAdd_YDS.Enabled = false;
             buttonDeleteRow_YDS.Enabled = false;
@@ -238,38 +240,40 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
             buttonFiltr_YDS.Enabled = false;
             buttonDeleteChart_YDS.Enabled = false;
             buttonCancelFiltr_YDS.Enabled = false;
+            buttonStopSearch_YDS.Enabled = false;
         }
 
 
         private void textBoxSearch_YDS_TextChanged(object sender, EventArgs e)
         {
-            string searchValue = textBoxSearch_YDS.Text.ToLower();
 
-            foreach (DataGridViewRow row in dataGridViewDataBase_YDS.Rows)
-            {
-                foreach (DataGridViewCell cell in row.Cells)
-                {
-                    if (cell.Value != null && cell.Value.ToString().ToLower().Contains(searchValue))
-                    {
-                        cell.Style.BackColor = Color.Yellow;
-                    }
-                    else
-                    {
-                        cell.Style.BackColor = Color.White;
-                    }
-                }
-            }
         }
 
         private void buttonStopSearch_YDS_Click(object sender, EventArgs e)
         {
-            textBoxSearch_YDS.Text = null;
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < column; j++)
                 {
                     dataGridViewDataBase_YDS.Rows[i].Cells[j].Style.BackColor = Color.White;
                 }
+            }
+            try
+            {
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int j = 0; j < column; j++)
+                    {
+                        if (dataGridViewDataBase_YDS.Rows[i].Cells[j].Value != null && dataGridViewDataBase_YDS.Rows[i].Cells[j].Value.ToString().ToLower().Contains(textBoxSearch_YDS.Text.ToLower()))
+                        {
+                            dataGridViewDataBase_YDS.Rows[i].Cells[j].Style.BackColor = Color.LightGreen;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Что-то пошло не так", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -470,6 +474,18 @@ namespace Tyuiu.YangolenkoDS.Sprint7.Project.V1
         {
             dataGridViewDataBase_YDS.ClearSelection();
             textBoxFiltr_YDS.Text = null;
+        }
+
+        private void buttonStopSearch_YDS_Click_1(object sender, EventArgs e)
+        {
+            textBoxSearch_YDS.Text = null;
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < column; j++)
+                {
+                    dataGridViewDataBase_YDS.Rows[i].Cells[j].Style.BackColor = Color.White;
+                }
+            }
         }
 
         private void dataGridViewDataBase_YDS_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
